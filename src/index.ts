@@ -9,9 +9,11 @@ import notFoundMiddleware from "./middlewares/notFoundMiddleware.js";
 import studentRouter_v2 from "./routes/studentsRoutes_v2.js";
 import studentRouter_v3 from "./routes/studentsRoutes_v3.js";
 import courseRouter_v2 from "./routes/coursesRouters_v2.js";
+import userRouter from "./routes/usersRoutes.js";
+import enrollmentsRouter from "./routes/enrollmentsRouter.js";
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // body parser middleware
 app.use(express.json());
@@ -34,8 +36,8 @@ app.get("/me", (req: Request, res: Response) => {
     message: "Student Information",
     data: {
       studentId: "600610999",
-      firstName: "Dome",
-      lastName: "Potikanond",
+      firstName: "Sarudhya",
+      lastName: "Achavakul",
       program: "CPE",
       section: "001",
     },
@@ -45,6 +47,8 @@ app.get("/me", (req: Request, res: Response) => {
 app.use("/api/v2/students", studentRouter_v2);
 app.use("/api/v3/students", studentRouter_v3);
 app.use("/api/v2/courses", courseRouter_v2);
+app.use("/api/v2/enrollments", userRouter);
+app.use("/api/v2/enrollments", enrollmentsRouter);
 
 // endpoint check middleware
 app.use(notFoundMiddleware);
